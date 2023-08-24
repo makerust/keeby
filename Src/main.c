@@ -101,6 +101,8 @@ USART_HandleTypeDef husart1;
 #define HID_DELAY 10
 
 
+
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -128,6 +130,24 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
   int keyBindArry[8]={0x1E, 0x1F, 0x20, 0x21, 41, 35, 80, 79};
+  
+  //Alt keycodes here
+	static int MinAUm[4]=(98,90,90,96);
+	static int MinOUm[4]=(98,90,92,94);
+	static int MinUUm[4]=(98,90,93,90);
+	static int SharfS[4]=(98,90,90,91);
+
+	static int MajAUm[4]=(98,89,97,94);
+	static int MajOUm[4]=(98,90,89,92);
+	static int MajUUm[4]=(98,90,90,98);
+	static int EuroSg[4]=(98,89,90,96);
+	
+	
+	
+	
+  //WTF is this magic number array
+  //This seems to be a faild attempt to write the characters as tho they were
+  //normal keys
 
   /* USER CODE END 1 */
 
@@ -164,6 +184,7 @@ int main(void)
 
   uint8_t hidWriteBuffer1[8]={1, 0, 0, 0, 0, 0, 0, 0}; //This is the USB key HID Buffer
   uint8_t hidRelBuffer1[8]={1, 0, 0, 0, 0, 0, 0, 0}; //This is the key release buffer
+  
   int hidAvBytes = 6;
 
   int NextAveHIDByte(int *c, int s, int e)//Pass Array by ref, then Start and End, (4,8)
@@ -185,6 +206,31 @@ int main(void)
 	  }
 	  return r;
   }
+//check if this is trash to remove by enabling the printf
+
+
+  void AltCodeSend(int KP[4])
+  {
+	  uint8_t hidWriteBuffer[8] = {1, 4, 0, 0, 0, 0, 0, 0}; // This is the key write buffer
+	  uint8_t hidRelBuffer[8] = {1, 4, 0, 0, 0, 0, 0, 0};	// This is the key release buffer
+	  uint8_t hidAltBuffer[8] = {1, 4, 0, 0, 0, 0, 0, 0};	// This is a buffer to send just alt
+
+	  // To send an alt code, four keypad hid codes with alt modifier are
+	  // sent, interleaved with 4 HID writes with just the alt modifier
+	  for (int j = 0; j < 3; j++)
+	  {
+		// Fill, and Send the key press buffer, then wait
+		hidWriteBuffer[3] = KP1[j];
+		USBD_HID_SendReport(&hUsbDeviceFS, hidWriteBuffer, 8);
+		HAL_Delay(HID_DELAY);
+
+		USBD_HID_SendReport(&hUsbDeviceFS, hidAltBuffer, 8);
+		HAL_Delay(HID_DELAY);
+	  }
+	  USBD_HID_SendReport(&hUsbDeviceFS, hidRelBuffer, 8);
+	  // Send Release
+  }
+  
 
 
   HAL_GPIO_WritePin(GPIOA, STATUS_D1_Pin, GPIO_PIN_RESET);
@@ -249,6 +295,7 @@ int main(void)
 			  }
 
 		  }
+		  /*
 		  if(keyBufferCur[5]==1)
 		  {
 			  hidWriteBuffer1[0]=1;
@@ -260,9 +307,36 @@ int main(void)
 			  hidWriteBuffer1[6]=0;
 			  hidWriteBuffer1[7]=0;
 		  }
+		  */
+		 //Try the clean up here
 
-
-		  if(keyBufferCur[0]==1 && keyBufferPrev[0] == 0) //This is the alt code to send an ä. It requires 4 sends of alt + a numpad number interleved with null sends
+		if(keyBufferCur[0]==1 && keyBufferPrev[0] == 0){
+			AltCodeSend(MinAUm);
+		}
+		if(keyBufferCur[1]==1 && keyBufferPrev[1] == 0){
+			AltCodeSend(MinOUm);
+		}
+		if(keyBufferCur[2]==1 && keyBufferPrev[2] == 0){
+			AltCodeSend(MinUUm);
+		}				
+		if(keyBufferCur[3]==1 && keyBufferPrev[3] == 0){
+			AltCodeSend(SharfS);
+		}
+		if(keyBufferCur[4]==1 && keyBufferPrev[4] == 0){
+			AltCodeSend(MajAUm);
+		}		
+		if(keyBufferCur[5]==1 && keyBufferPrev[5] == 0){
+			AltCodeSend(MajOUm);
+		}
+		if(keyBufferCur[6]==1 && keyBufferPrev[6] == 0){
+			AltCodeSend(MajUUm);
+		}
+		if(keyBufferCur[7]==1 && keyBufferPrev[7] == 0){
+			AltCodeSend(EuroSg);
+		}
+								
+		/*
+		  if(keyBufferCur[0]==1 && keyBufferPrev[0] == 0) //This is the alt code to send an ï¿½. It requires 4 sends of alt + a numpad number interleved with null sends
 		  {
 			  hidWriteBuffer1[0]=1;
 			  hidWriteBuffer1[1]=4;
@@ -353,7 +427,7 @@ int main(void)
 
 		  }
 
-		  if(keyBufferCur[1]==1 && keyBufferPrev[1] == 0) //This is the alt code to send an ö. It requires 4 sends of alt + a numpad number interleved with null sends
+		  if(keyBufferCur[1]==1 && keyBufferPrev[1] == 0) //This is the alt code to send an ï¿½. It requires 4 sends of alt + a numpad number interleved with null sends
 		  {
 			  hidWriteBuffer1[0]=1;
 			  hidWriteBuffer1[1]=4;
@@ -436,7 +510,7 @@ int main(void)
 
 		  }
 
-		  if(keyBufferCur[2]==1 && keyBufferPrev[2] == 0) //This is the alt code to send an ü. It requires 4 sends of alt + a numpad number interleved with null sends
+		  if(keyBufferCur[2]==1 && keyBufferPrev[2] == 0) //This is the alt code to send an ï¿½. It requires 4 sends of alt + a numpad number interleved with null sends
 		  {
 			  hidWriteBuffer1[0]=1;
 			  hidWriteBuffer1[1]=4;
@@ -526,7 +600,7 @@ int main(void)
 		  }
 
 
-		  if(keyBufferCur[3]==1 && keyBufferPrev[3] == 0) //This is the alt code to send an ß. It requires 4 sends of alt + a numpad number interleved with null sends
+		  if(keyBufferCur[3]==1 && keyBufferPrev[3] == 0) //This is the alt code to send an ï¿½. It requires 4 sends of alt + a numpad number interleved with null sends
 		  {
 			  hidWriteBuffer1[0]=1;
 			  hidWriteBuffer1[1]=4;
@@ -615,7 +689,7 @@ int main(void)
 
 		  }
 
-		  if(keyBufferCur[4]==1 && keyBufferPrev[4] == 0) //This is the alt code to send an Ä. It requires 4 sends of alt + a numpad number interleved with null sends
+		  if(keyBufferCur[4]==1 && keyBufferPrev[4] == 0) //This is the alt code to send an ï¿½. It requires 4 sends of alt + a numpad number interleved with null sends
 		  {
 			  hidWriteBuffer1[0]=1;
 			  hidWriteBuffer1[1]=4;
@@ -704,7 +778,7 @@ int main(void)
 
 		  }
 
-		  if(keyBufferCur[5]==1 && keyBufferPrev[5] == 0) //This is the alt code to send an Ö. It requires 4 sends of alt + a numpad number interleved with null sends
+		  if(keyBufferCur[5]==1 && keyBufferPrev[5] == 0) //This is the alt code to send an ï¿½. It requires 4 sends of alt + a numpad number interleved with null sends
 		  {
 			  hidWriteBuffer1[0]=1;
 			  hidWriteBuffer1[1]=4;
@@ -793,7 +867,7 @@ int main(void)
 
 		  }
 
-		  if(keyBufferCur[6]==1 && keyBufferPrev[6] == 0) //This is the alt code to send an Ü. It requires 4 sends of alt + a numpad number interleved with null sends
+		  if(keyBufferCur[6]==1 && keyBufferPrev[6] == 0) //This is the alt code to send an ï¿½. It requires 4 sends of alt + a numpad number interleved with null sends
 		  {
 			  hidWriteBuffer1[0]=1;
 			  hidWriteBuffer1[1]=4;
@@ -882,7 +956,7 @@ int main(void)
 
 		  }
 
-		  if(keyBufferCur[7]==1 && keyBufferPrev[7] == 0) //This is the alt code to send a €. It requires 4 sends of alt + a numpad number interleved with null sends
+		  if(keyBufferCur[7]==1 && keyBufferPrev[7] == 0) //This is the alt code to send a ï¿½. It requires 4 sends of alt + a numpad number interleved with null sends
 		  {
 			  hidWriteBuffer1[0]=1;
 			  hidWriteBuffer1[1]=4;
@@ -989,6 +1063,7 @@ int main(void)
 		  HAL_Delay(20);
 		  //HAL_GPIO_TogglePin(GPIOA, D2_Pin);
 	  }
+	  */
 
 	  //Release
 //	  if(k!=0)
