@@ -1,5 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
+# Toolchain: GNU Tools for STM32 (9-2020-q2-update)
 ################################################################################
 
 # Add inputs and outputs from these tool invocations to the build variables 
@@ -14,12 +15,13 @@ C_DEPS += \
 
 
 # Each subdirectory must supply rules for building sources it contributes
-Drivers/keeb/%.o: ../Drivers/keeb/%.c
-	@echo 'Building file: $<'
-	@echo 'Invoking: MCU GCC Compiler'
-	@echo $(PWD)
-	arm-none-eabi-gcc -mcpu=cortex-m0 -mthumb -mfloat-abi=soft -DUSE_HAL_DRIVER -DSTM32F070xB -I"C:/Users/Tom/Documents/KeebSoftware/Keeby1/Inc" -I"C:/Users/Tom/Documents/KeebSoftware/Keeby1/Drivers/STM32F0xx_HAL_Driver/Inc" -I"C:/Users/Tom/Documents/KeebSoftware/Keeby1/Drivers/STM32F0xx_HAL_Driver/Inc/Legacy" -I"C:/Users/Tom/Documents/KeebSoftware/Keeby1/Middlewares/ST/STM32_USB_Device_Library/Core/Inc" -I"C:/Users/Tom/Documents/KeebSoftware/Keeby1/Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc" -I"C:/Users/Tom/Documents/KeebSoftware/Keeby1/Drivers/CMSIS/Device/ST/STM32F0xx/Include" -I"C:/Users/Tom/Documents/KeebSoftware/Keeby1/Drivers/CMSIS/Include"  -Og -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
-	@echo 'Finished building: $<'
-	@echo ' '
+Drivers/keeb/%.o: ../Drivers/keeb/%.c Drivers/keeb/subdir.mk
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m0 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F070xB -c -I../Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc -I../Drivers/STM32F0xx_HAL_Driver/Inc/Legacy -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc -I../Drivers/CMSIS/Device/ST/STM32F0xx/Include -I../Drivers/CMSIS/Include -Og -ffunction-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfloat-abi=soft -mthumb -o "$@"
 
+clean: clean-Drivers-2f-keeb
+
+clean-Drivers-2f-keeb:
+	-$(RM) ./Drivers/keeb/keeb.d ./Drivers/keeb/keeb.o
+
+.PHONY: clean-Drivers-2f-keeb
 
