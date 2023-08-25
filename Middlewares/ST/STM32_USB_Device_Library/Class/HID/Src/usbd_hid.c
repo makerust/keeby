@@ -151,7 +151,7 @@ __ALIGN_BEGIN static uint8_t USBD_HID_CfgDesc[USB_HID_CONFIG_DESC_SIZ]  __ALIGN_
   
   /************** Descriptor of Joystick Mouse interface ****************/
   // Begin TODO 2 HID_KEYBOARD_HANDS_ON: Adapt the protocol interface to keyboard
-  #warning "TODO 2 HID_KEYBOARD_HANDS_ON: Adapt the protocol interface to keyboard"
+  //#warning "TODO 2 HID_KEYBOARD_HANDS_ON: Adapt the protocol interface to keyboard"
   /* 09 */
   0x09,         /*bLength: Interface Descriptor size*/
   USB_DESC_TYPE_INTERFACE,/*bDescriptorType: Interface descriptor type*/
@@ -218,7 +218,7 @@ __ALIGN_BEGIN static uint8_t USBD_HID_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_
 };
 
 // Begin TODO 4 HID_KEYBOARD_HANDS_ON: Change the HID report descriptor
-#warning "TODO 4 HID_KEYBOARD_HANDS_ON: Change the HID report descriptor"
+//#warning "TODO 4 HID_KEYBOARD_HANDS_ON: Change the HID report descriptor"
 #if 0
 /* Default library HID mouse report descriptor */
 __ALIGN_BEGIN static uint8_t HID_MOUSE_ReportDesc[HID_MOUSE_REPORT_DESC_SIZE]  __ALIGN_END =

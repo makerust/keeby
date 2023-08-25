@@ -52,7 +52,7 @@
 #define HID_EPIN_ADDR                 0x81
 
 // Begin TODO 1 HID_KEYBOARD_HANDS_ON: Adapt the End size to the report format
-#warning "TODO 1 HID_KEYBOARD_HANDS_ON: Adapt the End size to the report format"
+//#warning "TODO 1 HID_KEYBOARD_HANDS_ON: Adapt the End size to the report format"
 #define HID_EPIN_SIZE                 0x08
  // End HID_KEYBOARD_HANDS_ON: Adapt the End size to report format
 
@@ -60,7 +60,7 @@
 #define USB_HID_DESC_SIZ              9
 
 // Begin TODO 3 HID_KEYBOARD_HANDS_ON: Change the descriptor report size ( here 187)
-#warning "TODO 3 HID_KEYBOARD_HANDS_ON: Change the descriptor report size"
+//#warning "TODO 3 HID_KEYBOARD_HANDS_ON: Change the descriptor report size"
 #define HID_MOUSE_REPORT_DESC_SIZE    187
  // End HID_KEYBOARD_HANDS_ON: Change the descriptor report size ( here 187)
 
