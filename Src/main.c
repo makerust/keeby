@@ -85,6 +85,8 @@ USART_HandleTypeDef husart1;
 //|    |    |    |    | |    |    |    |    |
 //|  1 |  2 | 3  |  4 | |  5 |  6 |  7 | 8  |
 // ---- ---- ---- ----   ---- ---- ---- ----
+
+//-- Delete following section
 #define keyBind1 0x1E
 #define keyBind2 0x1F
 #define keyBind3 0x20
@@ -96,6 +98,7 @@ USART_HandleTypeDef husart1;
 #define keyBind8 37
 
 //int keyBindArry[8]={0x1E, 0x1F, 0x20, 0x21, 34, 35, 36, 37};
+//--end
 
 #define HID_DELAY 10
 
